@@ -1,0 +1,29 @@
+
+
+"modules": {
+	"links": true, 
+	"news": true, 
+	"lastfm": true, 
+	"weather": true
+}, 
+
+"settings": {
+	"weather": [ 
+		"Savannah, GA" 
+	], 
+	"links": {
+		"google": "http://www.google.com", 
+		"twitter": "http://www.twitter.com", 
+		"yahoo": "http://www.yahoo.com", 
+		"taco bell": "http://www.tacobell.com", 
+		"feedly": "http://www.feedly.com", 
+		"maps": "http://maps.google.com"
+	}, 
+	"feeds": {
+		"mojo": "http://feeds.feedburner.com/motherjones/main?format=xml", 
+		"al jazeera": "http://www.aljazeera.com/xml/rss/all.xml", 
+		"siliconera": "http://www.siliconera.com/feed/", 
+		"autostraddle": "https://www.autostraddle.com/feed/"
+	}
+}
+

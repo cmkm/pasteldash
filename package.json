@@ -1,0 +1,33 @@
+{
+  "name": "dash",
+  "version": "1.0.0",
+  "description": "tiny dashboard for rpi",
+  "author": "Cieara Meador <cieara@cmkm.io>",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "feedparser": "^1.1.5",
+    "mustache": "^2.3.0",
+    "router": "^1.1.4",
+    "rss-combiner": "0.0.5"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmkm/pasteldash.git"
+  },
+  "keywords": [
+    "dashboard",
+    "startpage",
+    "start",
+    "newtab",
+    "dash"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cmkm/pasteldash/issues"
+  },
+  "homepage": "https://github.com/cmkm/pasteldash#readme"
+}
