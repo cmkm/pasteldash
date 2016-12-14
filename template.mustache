@@ -1,19 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>dash</title>
-    <style type="text/css">
-    	body {
-			background: papayawhip;
-			color: #666;
-		}	
-
-    </style>
+    <title>dash</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
 </head>
 
-<body>
+<body onload="clock(); lastfm(); weather(); setInterval('clock()', 1000); setInterval('lastfm()', 30000);">
 
-	<div class="time">10:00</div>
+	<div class="wrapper">
+	<div class="clock">00:00</div>
+
+	<div class="weather">
+        </div>
 	
 	<div class="links">
 		<ul>
@@ -28,15 +27,112 @@
     </div>
 
 	<div class="lastfm">
-		<span class="time">9:58</span>
 		<span>artist - title</span>
     </div>	
 
-	<div class="weather">
-		<span class="status">sunny / 100˚F</span>
-		<span class="location">savannah</span>
-    </div>
+
+	</div>
 
 
 </body>
+    <script>
+    var el = document.getElementsByClassName("clock")[0];
+    (function() {
+	condition = localStorage.getItem("weathercondition");
+	fahrenheit = localStorage.getItem("weathertempf");
+	celsius = localStorage.getItem("weathertempc");
+	time = localStorage.getItem("weathertime");
+	city = localStorage.getItem("weathercity");
+
+	if (condition === null) {
+		return;
+	}
+
+	$(".weather").html('<span class="status">' + condition + " " + celsius + '˚C</span>\n<span class="location">' + city + '</span>');
+    }());
+	var clock = function() {
+		var d = new Date();
+		var h = d.getHours();
+		var m = d.getMinutes();
+		h = (h < 10 ? "0" : "") + h;
+		m = (m < 10 ? "0" : "") + m;
+		
+		var time = h + ":" + m;
+
+		el.textContent = time;
+	};
+
+	var lastfm = function() {
+		$.get('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=lemonadefreeze&limit=1&api_key= 70436169ce39d8149f420ac533b15833&format=json', 
+			function(data) { 
+
+				var name, song;
+
+				// currently listening?
+				// if (data.recenttracks.track.length > 1) {
+				// 	time = "now";	
+				// }
+
+			    var t = data.recenttracks.track[0];
+			    name = t.artist["#text"];
+			    song = t.name;
+			    // time = (time.length > 0)? time : t.date["#text"].split(" ")[3];
+			    $('.lastfm').html('<span>' + name + ' - ' + song + '</span>');
+			    // localStorage.setItem("songtime", time);
+			    localStorage.setItem("songtitle", name + " - " + song);
+			})
+		.fail(function (){ $('.lastfm').html('<span>' + localStorage.getItem("songtitle") + '</span>'); });
+	};
+
+	var weather = function() {
+		var query = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places%20where%20text='savannah,%20ga')&format=json";
+
+		$.get(query, function(data) {
+			var t, city, time, sunrise, sunset, condition, fahrenheit, celsius, daytime; 
+
+			if (data.query.count < 1) {
+				console.log("Couldn't fetch weather data."); 
+				condition = localStorage.getItem("weathercondition");
+				fahrenheit = localStorage.getItem("weathertempf");
+				celsius = localStorage.getItem("weathertempc");
+				time = localStorage.getItem("weathertime");
+				city = localStorage.getItem("weathercity");
+
+				if (condition === null) {
+					return;
+				}
+
+				$(".weather").html('<span class="status">' + condition + " " + celsius + '˚C</span>\n<span class="location">' + city + '</span>');
+				return;
+			}
+			t = data.query.results.channel;
+			city = t.location.city;
+			time = t.item.condition.date;
+			sunrise = parseInt((t.astronomy.sunrise).split(" ")[0].split(":")[0], 10);
+			sunset = parseInt((t.astronomy.sunset).split(" ")[0].split(":")[0], 10) + 12;
+			condition = {
+				"26": "☁️", 
+				"28": "☁️", 
+				"30": "☁️", 
+				"47":  "☔️" 	
+			}[t.item.condition.code];
+			if (typeof condition === "undefined") {
+				condition = "☀️";
+			}
+
+			fahrenheit = t.item.condition.temp;
+			celsius = Math.round((fahrenheit - 32) * (5/9) * 1.0);
+			daytime = (parseInt(el.textContent.split(":")[0], 10)) > sunset ? false : true;
+			$(".weather").html('<span class="status">' + condition + " " + celsius + '˚C</span>\n<span class="location">' + city + '</span>');
+			localStorage.setItem("weathercondition", condition);
+			localStorage.setItem("weathertempc", celsius);
+			localStorage.setItem("weathertempf", fahrenheit);
+			localStorage.setItem("weathercity", city);
+			localStorage.setItem("weathertime", time);
+		})
+		.fail(function() { console.log("Couldn't fetch weather data."); $(".weather").hide(); });
+	};
+
+
+    </script>
 </html>

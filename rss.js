@@ -1,8 +1,8 @@
-var FeedParser = require('feedparser')
-  , request = require('request');
+var FeedParser = require('feedparser'), 
+    request = require('request');
  
-var req = request('http://feeds.feedburner.com/motherjones/main?format=xml')
-  , feedparser = new FeedParser();
+var req = request('http://feeds.feedburner.com/motherjones/main?format=xml'), 
+    feedparser = new FeedParser();
 
 var articles = [];
  
@@ -29,11 +29,9 @@ feedparser.on('readable', function() {
  
   var i = 0;
   while ((item = stream.read()) && (i < 10)) {
-    // console.log(item);
-    // console.log("Title:" + item.title + "\nPubdate:" + item.pubdate + "\nLink:" + item.origlink);
     articles.push({"title": item.title, "pubdate": item.pubdate, "link": item.origlink});
     i++;
   }
 
-	console.log(articles);
+console.log(articles);
 });

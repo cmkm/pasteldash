@@ -1,16 +1,12 @@
-
-
+{
 "modules": {
-	"links": true, 
-	"news": true, 
-	"lastfm": true, 
-	"weather": true
+	"links": "true", 
+	"feeds": "true", 
+	"lastfm": "true", 
+	"weather": "true"
 }, 
 
 "settings": {
-	"weather": [ 
-		"Savannah, GA" 
-	], 
 	"links": {
 		"google": "http://www.google.com", 
 		"twitter": "http://www.twitter.com", 
@@ -24,6 +20,13 @@
 		"al jazeera": "http://www.aljazeera.com/xml/rss/all.xml", 
 		"siliconera": "http://www.siliconera.com/feed/", 
 		"autostraddle": "https://www.autostraddle.com/feed/"
-	}
+	}, 
+	"weather": [ 
+		"Savannah, GA" 
+	], 
+       "lastfm": {
+       		"user": "", 
+		"key": ""
+       } 
 }
-
+}
