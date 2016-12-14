@@ -1,55 +1,42 @@
-<!doctype html>
-<html lang="en">
-<head>
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:8080/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>dash</title>
-    <link rel="stylesheet" href="/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./dash_files/css">
+    <script src="./dash_files/jquery.min.js"></script>
 </head>
 
 <body>
 
 	<div class="wrapper">
-		<div class="clock">00:00</div>
+		<div class="clock">01:05</div>
 
-		{{#config.modules.weather}}
 		<div class="weather">
 		</div>
-		{{/config.modules.weather}}
 		
-		{{#config.modules.links}}
 		<div class="links">
 			<ul>
-				{{#config.settings.links}}
-					<li><a href="{{url}}" target="_blank">{{name}}</a></li>
-				{{/config.settings.links}}
+					<li><a href="http://www.google.com/" target="_blank">google</a></li>
+					<li><a href="http://www.twitter.com/" target="_blank">twitter</a></li>
+					<li><a href="http://www.feedly.com/" target="_blank">feedly</a></li>
+					<li><a href="http://www.pinboard.in/" target="_blank">pinboard</a></li>
 			</ul>
 		</div>
-		{{/config.modules.links}}
 
-		{{#config.modules.news}}
-		<div class="news">
-			<span class="time">9:54</span> 
-			<span>something has happened</span>
-		</div>
-		{{/config.modules.news}}
 
-		{{#config.modules.lastfm}}
-		<div class="lastfm">
-			<span>artist - title</span>
-		</div>	
-		{{/config.modules.lastfm}}
+		<div class="lastfm"><span>Silversun Pickups - Three Seed</span></div>	
 
 
 	</div>
 
 
-</body>
+
     <script>
 
         var el = document.getElementsByClassName("clock")[0];
-        const CITY = "{{config.settings.weather.city}}";
-	const LASTFM_USER = "{{config.settings.lastfm.user}}";
-	const LASTFM_KEY = "{{config.settings.lastfm.key}}";
+        const CITY = "Savannah, GA";
+	const LASTFM_USER = "lemonadefreeze";
+	const LASTFM_KEY = "70436169ce39d8149f420ac533b15833";
 
     (function() {
 	condition = localStorage.getItem("weathercondition");
@@ -150,17 +137,14 @@
 	$(document).ready(function() {
 		clock(); 
 
-		{{#config.modules.lastfm}}
 		lastfm(); 
 		setInterval('lastfm()', 30000);
-		{{/config.modules.lastfm}} 
 		
-		{{#config.modules.weather}}
 		weather();
-		{{/config.modules.weather}} 
 		
 		setInterval('clock()', 1000);
 	});
 
     </script>
-</html>
+
+</body></html>
