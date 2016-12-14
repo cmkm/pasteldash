@@ -27,9 +27,21 @@ http.createServer(function(req, res) {
 		console.error(err);
 	});
 
-	if (req.method === 'GET' && req.url === '/style.css') {
-		res.end(fs.readFileSync(__dirname + '/style.css'));
+	if (req.method === 'GET' && req.url === '/css') {
+		var style = fs.readFileSync(__dirname + '/style.css');
+		res.setHeader('Content-Type', 'text/css');
+
+		switch (config.settings.theme) {
+			case "holiday": 
+			 	style = fs.readFileSync(__dirname + '/themes/xmas.css');
+				break;
+			default: 
+				break;
+		}
+
+		res.end(style);
 	};
+
 
 	if (req.method === 'GET') {
 		res.end(mustache.render(template, context));

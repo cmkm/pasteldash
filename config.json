@@ -1,29 +1,40 @@
 {
 "modules": {
-	"links": "true", 
-	"feeds": "true", 
-	"lastfm": "true", 
-	"weather": "true"
+	"links": true, 
+	"feeds": true, 
+	"lastfm": true, 
+	"weather": true
 }, 
 
 "settings": {
-	"links": {
-		"google": "http://www.google.com", 
-		"twitter": "http://www.twitter.com", 
-		"yahoo": "http://www.yahoo.com", 
-		"taco bell": "http://www.tacobell.com", 
-		"feedly": "http://www.feedly.com", 
-		"maps": "http://maps.google.com"
-	}, 
+	"theme": "default", 
+	"links": [
+		{
+			"name": "google", 
+			"url": "http://www.google.com" 
+		}, 
+		{
+			"name": "twitter", 
+			"url": "http://www.twitter.com"
+		}, 
+		{
+			"name": "feedly", 
+			"url": "http://www.feedly.com" 
+		}, 
+		{
+			"name": "pinboard", 
+			"url": "http://www.pinboard.in" 
+		} 
+	], 
 	"feeds": {
 		"mojo": "http://feeds.feedburner.com/motherjones/main?format=xml", 
 		"al jazeera": "http://www.aljazeera.com/xml/rss/all.xml", 
 		"siliconera": "http://www.siliconera.com/feed/", 
 		"autostraddle": "https://www.autostraddle.com/feed/"
 	}, 
-	"weather": [ 
-		"Savannah, GA" 
-	], 
+	"weather": { 
+		"city": "Savannah, GA" 
+	}, 
        "lastfm": {
        		"user": "", 
 		"key": ""

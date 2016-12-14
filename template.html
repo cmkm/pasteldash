@@ -2,41 +2,42 @@
 <html lang="en">
 <head>
     <title>dash</title>
-    <link rel="stylesheet" href="./style.css">
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 
-<body onload="clock(); lastfm(); weather(); setInterval('clock()', 1000); setInterval('lastfm()', 30000);">
+<body>
 
 	<div class="wrapper">
-	<div class="clock">00:00</div>
+		<div class="clock">00:00</div>
 
-	{{#config.modules.weather}}
-	<div class="weather">
-        </div>
-	{{/config.modules.weather}}
-	
-	{{#config.modules.links}}
-	<div class="links">
-		<ul>
-			<li>google.com
-			<li>yahoo.com
-			<li>livejournal.com
-	</div>
-	{{/config.modules.links}}
+		{{#config.modules.weather}}
+		<div class="weather">
+		</div>
+		{{/config.modules.weather}}
+		
+		{{#config.modules.links}}
+		<div class="links">
+			<ul>
+				{{#config.settings.links}}
+					<li><a href="{{url}}" target="_blank">{{name}}</a></li>
+				{{/config.settings.links}}
+			</ul>
+		</div>
+		{{/config.modules.links}}
 
-	{{#config.modules.news}}
-	<div class="news">
-		<span class="time">9:54</span> 
-		<span>something has happened</span>
-        </div>
-	{{/config.modules.news}}
+		{{#config.modules.news}}
+		<div class="news">
+			<span class="time">9:54</span> 
+			<span>something has happened</span>
+		</div>
+		{{/config.modules.news}}
 
-	{{#config.modules.lastfm}}
-	<div class="lastfm">
-		<span>artist - title</span>
-        </div>	
-        {{/config.modules.lastfm}}
+		{{#config.modules.lastfm}}
+		<div class="lastfm">
+			<span>artist - title</span>
+		</div>	
+		{{/config.modules.lastfm}}
 
 
 	</div>
@@ -44,7 +45,12 @@
 
 </body>
     <script>
-    var el = document.getElementsByClassName("clock")[0];
+
+        var el = document.getElementsByClassName("clock")[0];
+        const CITY = "{{config.settings.weather.city}}";
+	const LASTFM_USER = "{{config.settings.lastfm.user}}";
+	const LASTFM_KEY = "{{config.settings.lastfm.key}}";
+
     (function() {
 	condition = localStorage.getItem("weathercondition");
 	fahrenheit = localStorage.getItem("weathertempf");
@@ -71,7 +77,7 @@
 	};
 
 	var lastfm = function() {
-		$.get('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=lemonadefreeze&limit=1&api_key= 70436169ce39d8149f420ac533b15833&format=json', 
+		$.get('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user='+ LASTFM_USER +'&limit=1&api_key='+ LASTFM_KEY +'&format=json', 
 			function(data) { 
 
 				var name, song;
@@ -141,6 +147,20 @@
 		.fail(function() { console.log("Couldn't fetch weather data."); $(".weather").hide(); });
 	};
 
+	$(document).ready(function() {
+		clock(); 
+
+		{{#config.modules.lastfm}}
+		lastfm(); 
+		setInterval('lastfm()', 30000);
+		{{/config.modules.lastfm}} 
+		
+		{{#config.modules.weather}}
+		weather();
+		{{/config.modules.weather}} 
+		
+		setInterval('clock()', 1000);
+	});
 
     </script>
 </html>

@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+body {
+background: url('https://images.unsplash.com/photo-1481056447409-db8232bd2321?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=f52deb93334317261cdc44e39ea60013'); 
+background-size: cover;
+color: #fff;
+font-family: Inconsolata, monospace;
+font-size: 18px;
+}	
+
+		ul {
+				list-style-type: none;
+						padding-left: 0;
+								margin-left: 0;
+		}
+		
+			ul li {
+					line-height: 1.5em;
+			}
+
+			a {color: white;}
+
+	.wrapper {
+	    text-align: center;
+	    height: 100vh;
+	    margin: 0 auto;
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-content: center;
+	}
+
+
+
+	.clock {
+	    font-size: 10em;
+	}
+
+	.news {
+		display: flex-end;
+	}
+
+	.lastfm {
+		position: absolute;
+		bottom: 0;
+	}
+
+	.lastfm:before {
+		content: "🎵 ";
+	}
+
+	@media only screen and (max-device-width: 736px) {
+			.wrapper {
+					justify-content: flex-start;
+			}
+	    .wrapper > div:first-child {
+				font-size: 8em;
+		}
+
+		.wrapper > div {
+				font-size: 4rem;
+		}
+
+		.lastfm {
+			font-size: 3rem;
+		}
+	}
